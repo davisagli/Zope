@@ -10,8 +10,7 @@ on the server.
 <br/>
 <br/>
 <b>Note:</b>
-Zope can export/import objects in two different formats: a binary format (called
-ZEXP) and as XML. The ZEXP format is the officially supported export/import
+The binary ZEXP format is the officially supported export/import
 format for moving data between <u>identical</u> Zope installations (it is not a migration tool).
 </p>
 
@@ -47,20 +46,6 @@ format for moving data between <u>identical</u> Zope installations (it is not a 
   </div>
   </td>
 </tr>  
-<tr>
-  <td align="left" valign="top">
-  &nbsp;
-  </td>
-  <td align="left" valign="top">
-  <div class="form-text">
-  <label for="toxml">
-  <input type="checkbox" id="toxml" name="toxml" value="Y" />
-  XML format?
-  </label>
-  <em>(unsupported, see above)</em>
-  </div>
-  </td>
-</tr>
 <tr>
   <td></td>
   <td align="left" valign="top">

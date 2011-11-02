@@ -57,6 +57,10 @@ Features Added
 Restructuring
 +++++++++++++
 
+- Removed `Shared.DC.xml`.
+
+- Removed the XML export/import support.
+
 - Removed the (very obsolete) thread lock around the cookie parsing code
   in HTTPRequest.py; the python `re` module is thread-safe, unlike the
   ancient `regex` module that was once used here.

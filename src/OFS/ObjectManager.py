@@ -62,9 +62,6 @@ from OFS.Traversable import Traversable
 from OFS.event import ObjectWillBeAddedEvent
 from OFS.event import ObjectWillBeRemovedEvent
 from OFS.subscribers import compatibilityCall
-from OFS.XMLExportImport import importXML
-from OFS.XMLExportImport import exportXML
-from OFS.XMLExportImport import magic
 
 # Constants: __replaceable__ flags:
 NOT_REPLACEABLE = 0
@@ -76,8 +73,7 @@ LOG = getLogger('ObjectManager')
 # the name BadRequestException is relied upon by 3rd-party code
 BadRequestException = BadRequest
 
-customImporters={magic: importXML,
-                }
+customImporters={}
 
 bad_id=re.compile(r'[^a-zA-Z0-9-_~,.$\(\)# @]').search
 
@@ -551,8 +547,7 @@ class ObjectManager(CopyContainer,
         return r
 
     security.declareProtected(import_export_objects, 'manage_exportObject')
-    def manage_exportObject(self, id='', download=None, toxml=None,
-                            RESPONSE=None,REQUEST=None):
+    def manage_exportObject(self, id='', download=None, RESPONSE=None, REQUEST=None):
         """Exports an object to a file and returns that file."""
         if not id:
             # can't use getId() here (breaks on "old" exported objects)
@@ -561,14 +556,11 @@ class ObjectManager(CopyContainer,
             ob=self
         else: ob=self._getOb(id)
 
-        suffix=toxml and 'xml' or 'zexp'
+        suffix = 'zexp'
 
         if download:
             f=StringIO()
-            if toxml:
-                exportXML(ob._p_jar, ob._p_oid, f)
-            else:
-                ob._p_jar.exportFile(ob._p_oid, f)
+            ob._p_jar.exportFile(ob._p_oid, f)
             if RESPONSE is not None:
                 RESPONSE.setHeader('Content-type','application/data')
                 RESPONSE.setHeader('Content-Disposition',
@@ -577,10 +569,7 @@ class ObjectManager(CopyContainer,
 
         cfg = getConfiguration()
         f = os.path.join(cfg.clienthome, '%s.%s' % (id, suffix))
-        if toxml:
-            exportXML(ob._p_jar, ob._p_oid, f)
-        else:
-            ob._p_jar.exportFile(ob._p_oid, f)
+        ob._p_jar.exportFile(ob._p_oid, f)
 
         if REQUEST is not None:
             return self.manage_main(self, REQUEST,
@@ -652,7 +641,7 @@ class ObjectManager(CopyContainer,
             if not os.path.isdir(directory):
                 continue
             listing += [f for f in os.listdir(directory)
-                        if f.endswith('.zexp') or f.endswith('.xml')]
+                        if f.endswith('.zexp')]
         listing.sort()
         return listing
 
