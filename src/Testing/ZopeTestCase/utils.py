@@ -25,47 +25,6 @@ import layer
 
 
 @layer.appcall
-def setupCoreSessions(app):
-    '''Sets up the session_data_manager e.a.'''
-    from Acquisition import aq_base
-    commit = 0
-
-    if not hasattr(app, 'temp_folder'):
-        from Products.TemporaryFolder.TemporaryFolder import MountedTemporaryFolder
-        tf = MountedTemporaryFolder('temp_folder', 'Temporary Folder')
-        app._setObject('temp_folder', tf)
-        commit = 1
-
-    if not hasattr(aq_base(app.temp_folder), 'session_data'):
-        from Products.Transience.Transience import TransientObjectContainer
-        toc = TransientObjectContainer('session_data',
-                    'Session Data Container',
-                    timeout_mins=3,
-                    limit=100)
-        app.temp_folder._setObject('session_data', toc)
-        commit = 1
-
-    if not hasattr(app, 'browser_id_manager'):
-        from Products.Sessions.BrowserIdManager import BrowserIdManager
-        bid = BrowserIdManager('browser_id_manager',
-                    'Browser Id Manager')
-        app._setObject('browser_id_manager', bid)
-        commit = 1
-
-    if not hasattr(app, 'session_data_manager'):
-        from Products.Sessions.SessionDataManager import SessionDataManager
-        sdm = SessionDataManager('session_data_manager',
-                    title='Session Data Manager',
-                    path='/temp_folder/session_data',
-                    requestName='SESSION')
-        app._setObject('session_data_manager', sdm)
-        commit = 1
-
-    if commit:
-        transaction.commit()
-
-
-@layer.appcall
 def setupSiteErrorLog(app):
     '''Sets up the error_log object required by ZPublisher.'''
     if not hasattr(app, 'error_log'):
@@ -144,7 +103,6 @@ def makelist(arg):
 
 
 __all__ = [
-    'setupCoreSessions',
     'setupSiteErrorLog',
     'startZServer',
     'importObjectFromFile',

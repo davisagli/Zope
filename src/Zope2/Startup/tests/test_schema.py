@@ -176,14 +176,14 @@ class StartupTestCase(unittest.TestCase):
               <filestorage>
                path <<INSTANCE_HOME>>/var/Data.fs
                </filestorage>
-                connection-class  Products.TemporaryFolder.LowConflictConnection.LowConflictConnection
+                connection-class  ZEO.zrpc.connection.ManagedClientConnection
                 mount-point                    /
                 cache-size                     5000
                 pool-size                      7
             </zodb_db>
             """)
         self.assertEqual(conf.databases[0].config.connection_class.__name__,
-                         'LowConflictConnection')
+                         'ManagedClientConnection')
 
     def test_max_conflict_retries_default(self):
         conf, handler = self.load_config_text("""\

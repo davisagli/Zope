@@ -57,6 +57,9 @@ Features Added
 Restructuring
 +++++++++++++
 
+- Removed session support (including `Products.Sessions`, `Products.Transience`,
+  and `Products.TemporaryFolder`).
+
 - Removed the (very obsolete) thread lock around the cookie parsing code
   in HTTPRequest.py; the python `re` module is thread-safe, unlike the
   ancient `regex` module that was once used here.

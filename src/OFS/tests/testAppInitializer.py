@@ -22,7 +22,7 @@ from App.config import getConfiguration, setConfiguration
 TEMPNAME = tempfile.mktemp()
 TEMPPRODUCTS = os.path.join(TEMPNAME, "Products")
 
-bad_cfg = """
+good_cfg = """
 instancehome <<INSTANCE_HOME>>
 
 <zodb_db main>
@@ -30,17 +30,6 @@ instancehome <<INSTANCE_HOME>>
    <mappingstorage>
       name mappingstorage
    </mappingstorage>
-</zodb_db>
-"""
-
-good_cfg = bad_cfg + """
-<zodb_db temporary>
-    # Temporary storage database (for sessions)
-    <temporarystorage>
-      name temporary storage for sessioning
-    </temporarystorage>
-    mount-point /temp_folder
-   container-class Products.TemporaryFolder.TemporaryContainer
 </zodb_db>
 """
 

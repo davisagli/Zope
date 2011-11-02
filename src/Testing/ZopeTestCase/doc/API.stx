@@ -295,8 +295,6 @@ Module utils
 
     Functions
 
-        setupCoreSessions(app=None)
-
         setupSiteErrorLog(app=None)
 
         startZServer(number_of_threads=1, log=None)

@@ -19,7 +19,7 @@ Introduction
 
     What you can test with ZTC
 
-    - Basically everything. Including security, transactions, sessions, web access, ...
+    - Basically everything. Including security, transactions, web access, ...
 
     What you cannot test with ZTC
 
@@ -104,8 +104,6 @@ What You Get
 
           Provides utility methods to extend the test environment:
 
-          - **'setupCoreSessions'** creates the Zope sessioning objects in the test ZODB.
-
           - **'setupSiteErrorLog'** creates the error_log object required by ZPublisher.
 
           - **'startZServer'** starts a ZServer thread on the local host. Use this if the
@@ -175,9 +173,6 @@ Writing Tests
         - **'testPythonScript.py'** tests a PythonScript object in the default fixture. 
           It demonstrates how to manipulate the test user's roles and permissions and how
           security is validated.
-
-        - **'testShoppingCart.py'** tests the ShoppingCart example. This test
-          uses Sessions and shows how to test a TTW Zope application.
 
         - **'testFunctional.py'** demonstrates the new functional testing features.
           Tests may call 'self.publish()' to simulate URL calls to the ZPublisher.
